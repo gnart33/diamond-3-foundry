@@ -85,7 +85,11 @@ contract DiamondTest is Test {
     function test_facetAddress() public view {
         // facet address of a function selector should be  associated to facets correctly multiple calls to facetAddress function
         bytes4 selector = diamondCutFacet.diamondCut.selector; // function selector of diamondCutFacet.diamondCut
-        assertEq(DiamondLoupeFacet(address(diamond)).facetAddress(selector), address(diamondCutFacet), "First facet address is not diamondCutFacet");
+        assertEq(
+            DiamondLoupeFacet(address(diamond)).facetAddress(selector),
+            address(diamondCutFacet),
+            "First facet address is not diamondCutFacet"
+        );
     }
 
     function test_facetFunctionSelectors() public view {
@@ -99,13 +103,29 @@ contract DiamondTest is Test {
         selectors = DiamondLoupeFacet(address(diamond)).facetFunctionSelectors(address(diamondLoupeFacet));
         assertEq(selectors.length, 4, "Should have 4 selectors for diamondLoupeFacet");
         assertEq(selectors[0], diamondLoupeFacet.facets.selector, "Second selector is not diamondLoupeFacet.facets");
-        assertEq(selectors[1], diamondLoupeFacet.facetFunctionSelectors.selector, "Third selector is not diamondLoupeFacet.facetFunctionSelectors");
-        assertEq(selectors[2], diamondLoupeFacet.facetAddresses.selector, "Fourth selector is not diamondLoupeFacet.facetAddresses");
-        assertEq(selectors[3], diamondLoupeFacet.facetAddress.selector, "Fifth selector is not diamondLoupeFacet.facetAddress");
+        assertEq(
+            selectors[1],
+            diamondLoupeFacet.facetFunctionSelectors.selector,
+            "Third selector is not diamondLoupeFacet.facetFunctionSelectors"
+        );
+        assertEq(
+            selectors[2],
+            diamondLoupeFacet.facetAddresses.selector,
+            "Fourth selector is not diamondLoupeFacet.facetAddresses"
+        );
+        assertEq(
+            selectors[3],
+            diamondLoupeFacet.facetAddress.selector,
+            "Fifth selector is not diamondLoupeFacet.facetAddress"
+        );
 
         selectors = DiamondLoupeFacet(address(diamond)).facetFunctionSelectors(address(ownershipFacet));
         assertEq(selectors.length, 2, "Should have 2 selectors for ownershipFacet");
-        assertEq(selectors[0], ownershipFacet.transferOwnership.selector, "Second selector is not ownershipFacet.transferOwnership");
+        assertEq(
+            selectors[0],
+            ownershipFacet.transferOwnership.selector,
+            "Second selector is not ownershipFacet.transferOwnership"
+        );
         assertEq(selectors[1], ownershipFacet.owner.selector, "Third selector is not ownershipFacet.owner");
     }
 }
