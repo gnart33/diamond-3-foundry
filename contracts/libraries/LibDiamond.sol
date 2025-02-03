@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 /**
  * \
- * Author: Nick Mudge <nick@perfectabstractions.com> (https://twitter.com/mudgen)
+ * Author: Nick Mudge  (https://twitter.com/mudgen)
  * EIP-2535 Diamonds: https://eips.ethereum.org/EIPS/eip-2535
  * /*****************************************************************************
  */
@@ -143,9 +143,7 @@ library LibDiamond {
         ds.facetAddresses.push(_facetAddress);
     }
 
-    function addFunction(DiamondStorage storage ds, bytes4 _selector, uint96 _selectorPosition, address _facetAddress)
-        internal
-    {
+    function addFunction(DiamondStorage storage ds, bytes4 _selector, uint96 _selectorPosition, address _facetAddress) internal {
         ds.selectorToFacetAndPosition[_selector].functionSelectorPosition = _selectorPosition;
         ds.facetFunctionSelectors[_facetAddress].functionSelectors.push(_selector);
         ds.selectorToFacetAndPosition[_selector].facetAddress = _facetAddress;
